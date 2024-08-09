@@ -52,7 +52,7 @@ func GetBrand(db *sql.DB, brand structs.Brand) (results []structs.Brand, err err
 
 func InsertBrand(db *sql.DB, brand structs.Brand) (err error) {
 
-	sql := "INSERT INTO brand(name, description, created_by) VALUES ($1, $2, $3)"
+	sql := "INSERT INTO brand(name, created_by) VALUES ($1, $2, $3)"
 
 	errs := db.QueryRow(sql, &brand.Name, &brand.CreatedBy)
 
@@ -60,7 +60,7 @@ func InsertBrand(db *sql.DB, brand structs.Brand) (err error) {
 }
 
 func UpdateBrand(db *sql.DB, brand structs.Brand) (err error) {
-	sql := "UPDATE brand SET name = $1, description = $2, modified_by = $3 WHERE id = $4"
+	sql := "UPDATE brand SET name = $1, modified_by = $2 WHERE id = $3"
 
 	errs := db.QueryRow(sql, brand.Name, brand.ID, brand.ID)
 

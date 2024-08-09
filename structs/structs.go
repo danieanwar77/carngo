@@ -13,7 +13,7 @@ type Brand struct {
 	CreatedAt	pq.NullTime		`json:"created_at"`
 	CreatedBy	int				`json:"created_by"`
 	ModifiedAt	pq.NullTime		`json:"modified_at"`
-	ModifiedBy	sql.NullInt64				`json:"modified_by"`
+	ModifiedBy	sql.NullInt64	`json:"modified_by"`
 }
 
 type Car struct {
