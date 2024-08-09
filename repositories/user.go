@@ -52,7 +52,7 @@ func GetUser(db *sql.DB, users structs.User) (results []structs.User, err error)
 
 func InsertUser(db *sql.DB, users structs.User) (err error) {
 
-	sql := "INSERT INTO users(username, password, level, token, created_at, created_by) VALUES ($1, $2, $3, '', $3, $4)"
+	sql := "INSERT INTO users(username, password, level, token, created_by) VALUES ($1, $2, $3, '', $4)"
 
 	errs := db.QueryRow(sql, &users.UserName, &users.Password, &users.Level, &users.ID)
 
