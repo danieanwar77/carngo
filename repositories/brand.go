@@ -52,7 +52,7 @@ func GetBrand(db *sql.DB, brand structs.Brand) (results []structs.Brand, err err
 
 func InsertBrand(db *sql.DB, brand structs.Brand) (err error) {
 
-	sql := "INSERT INTO brand(name, created_by) VALUES ($1, $2, $3)"
+	sql := "INSERT INTO brand(name, created_by) VALUES ($1, $2)"
 
 	errs := db.QueryRow(sql, &brand.Name, &brand.CreatedBy)
 
