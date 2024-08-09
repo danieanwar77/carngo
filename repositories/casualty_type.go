@@ -52,17 +52,17 @@ func GetCasualtyType(db *sql.DB, casualty structs.CasualtyType) (results []struc
 
 func InsertCasualtyType(db *sql.DB, casualty structs.CasualtyType) (err error) {
 
-	sql := "INSERT INTO casualty_type(name, description, level, created_by) VALUES ($1, $2, $3)"
+	sql := "INSERT INTO casualty_type(name, description, level) VALUES ($1, $2, $3)"
 
-	errs := db.QueryRow(sql, &casualty.Name, &casualty.Description, &casualty.Level, &casualty.CreatedBy)
+	errs := db.QueryRow(sql, &casualty.Name, &casualty.Description, &casualty.Level)
 
 	return errs.Err()
 }
 
 func UpdateCasualtyType(db *sql.DB, casualty structs.CasualtyType) (err error) {
-	sql := "UPDATE casualty_type SET name = $1, description = $2, level = $3, modified_by = $4 WHERE id = $5"
+	sql := "UPDATE casualty_type SET name = $1, description = $2, level = $3 WHERE id = $4"
 
-	errs := db.QueryRow(sql, casualty.Name, &casualty.Description, &casualty.Level, casualty.ID, casualty.ID)
+	errs := db.QueryRow(sql, casualty.Name, &casualty.Description, &casualty.Level, casualty.ID)
 
 	return errs.Err()
 }
