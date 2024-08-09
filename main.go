@@ -50,12 +50,12 @@ func main() {
 
 	router := echo.New()
 
-    router.Use(middleware.Logger())
-    router.Use(middleware.Recover())
-
 	router.GET("", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Welcome to Car n Go API v1")
 	})
+
+    router.Use(middleware.Logger())
+    router.Use(middleware.Recover())
 
 	publicRoutes := router.Group("/v1")
 	{
