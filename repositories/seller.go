@@ -73,9 +73,9 @@ func InsertSeller(db *sql.DB, seller structs.Seller) (err error) {
 }
 
 func UpdateSeller(db *sql.DB, seller structs.Seller) (err error) {
-	sql := "UPDATE seller SET email = $1, name = $2, phone_number = $3, username = $4, modified_by = $5 WHERE id = $6"
+	sql := "UPDATE seller SET email = $1, name = $2, phone_number = $3, modified_by = $4 WHERE id = $5"
 
-	errs := db.QueryRow(sql, &seller.Email, &seller.Name, &seller.PhoneNumber, &seller.UserName, &seller.ID, &seller.ID)
+	errs := db.QueryRow(sql, &seller.Email, &seller.Name, &seller.PhoneNumber, &seller.ID, &seller.ID)
 
 	return errs.Err()
 }
