@@ -159,19 +159,42 @@ func DeleteSeller(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	seller.ID = id
-	err := repository.DeleteSeller(database.DbConnection, seller)
+
+	err := c.Bind(&seller)
 	if err != nil {
 		result = structs.ResponseMetaObject{
 			Status:  http.StatusBadRequest,
 			Message: err.Error(),
 		}
 	} else {
-		result = structs.ResponseObject{
-			Meta: structs.ResponseMetaObject{
-				Status:  http.StatusOK,
-				Message: "Success",
-			},
-			Data: seller,
+
+		errSeller := repository.DeleteSeller(database.DbConnection, seller)
+
+		errUser := repository.DeleteUserSeller(database.DbConnection, seller)
+
+		if errSeller != nil && errUser == nil {
+			result = structs.ResponseMetaObject{
+				Status:  http.StatusBadRequest,
+				Message: errSeller.Error(),
+			}
+		} else if errSeller == nil && errUser != nil {
+			result = structs.ResponseMetaObject{
+				Status:  http.StatusBadRequest,
+				Message: errUser.Error(),
+			}
+		} else if errSeller != nil && errUser != nil {
+			result = structs.ResponseMetaObject{
+				Status:  http.StatusBadRequest,
+				Message: errSeller.Error() + "|" + errUser.Error(),
+			}
+		} else {
+			result = structs.ResponseObject{
+				Meta: structs.ResponseMetaObject{
+					Status:  http.StatusOK,
+					Message: "Success",
+				},
+				Data: seller,
+			}
 		}
 	}
 

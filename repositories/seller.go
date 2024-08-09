@@ -80,9 +80,16 @@ func UpdateSeller(db *sql.DB, seller structs.Seller) (err error) {
 	return errs.Err()
 }
 
+func DeleteUserSeller(db *sql.DB, seller structs.Seller) (err error) {
+	sql := "DELETE FROM users WHERE username = $1"
+
+	errs := db.QueryRow(sql, &seller.UserName)
+	return errs.Err()
+}
+
 func DeleteSeller(db *sql.DB, seller structs.Seller) (err error) {
 	sql := "DELETE FROM seller WHERE id = $1"
 
-	errs := db.QueryRow(sql, seller.ID)
+	errs := db.QueryRow(sql, &seller.ID)
 	return errs.Err()
 }
