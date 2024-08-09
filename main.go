@@ -53,6 +53,10 @@ func main() {
     router.Use(middleware.Logger())
     router.Use(middleware.Recover())
 
+	router.GET("", func(c echo.Context) error {
+		return c.String(http.StatusOK, "Welcome to Car n Go API v1")
+	})
+
 	publicRoutes := router.Group("/v1")
 	{
 		publicRoutes.POST("/login", auth.LoginHandler)

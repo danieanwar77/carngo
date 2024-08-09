@@ -65,7 +65,7 @@ func UpdateRegistrationStatus(db *sql.DB, register structs.RegistrationStatus) (
 
 	sql := "UPDATE registration_status SET name = $1, description = $2, modified_by = $3 WHERE id = $4"
 
-	errs := db.QueryRow(sql, register.Name, register.Description,  modified, register.ID)
+	errs := db.QueryRow(sql, register.Name, register.Description, modified, register.ID)
 
 	return errs.Err()
 }
