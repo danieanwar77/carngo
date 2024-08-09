@@ -62,7 +62,7 @@ func InsertRegistrationStatus(db *sql.DB, register structs.RegistrationStatus) (
 func UpdateRegistrationStatus(db *sql.DB, register structs.RegistrationStatus) (err error) {
 	sql := "UPDATE registration_status SET name = $1, description = $2, modified_by = $3 WHERE id = $4"
 
-	errs := db.QueryRow(sql, register.Name, register.Description, register.ID, register.ID)
+	errs := db.QueryRow(sql, register.Name, register.Description, register.ModifiedBy, register.ID)
 
 	return errs.Err()
 }
